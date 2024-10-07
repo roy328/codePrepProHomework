@@ -31,7 +31,7 @@ export default function About({ resetData, exportData, importData }) {
 							<Alert.Heading className="text-center">About</Alert.Heading>
 							<hr />
 							<h4 className="text-center">
-								450 DSA Cracker helps you build your confidence in solving any coding <br /> related question and helps you
+								CodePrepPro helps you build your confidence in solving any coding <br /> related question and helps you
 								prepare for your placements{" "}
 								<span role="img" aria-label="student">
 									👨🏻‍🎓
@@ -41,7 +41,7 @@ export default function About({ resetData, exportData, importData }) {
 					</div>
 					<div className="container my-5">
 						<h2 className="text-center">
-							<a href="https://www.450dsa.com">450dsa</a> is your personal web-based progress tracker based on <br></br>
+							<a href="">CodePrepPro</a> is your personal web-based progress tracker based on <br></br>
 							<i>
 								<a
 									href="https://drive.google.com/file/d/1FMdN_OCfOI0iAeDlqswCiC2DZzD4nPsb/view"
@@ -63,8 +63,8 @@ export default function About({ resetData, exportData, importData }) {
 						</h2>
 						<h4 className="text-center my-5">
 							Project by{" "}
-							<a href="https://www.linkedin.com/in/asishraju/" target="_blank" rel="noopener noreferrer">
-								Asish
+							<a href="" target="_blank" rel="noopener noreferrer">
+								Group 37
 							</a>{" "}
 							<span role="img" aria-label="code-men">
 								👨🏻‍💻

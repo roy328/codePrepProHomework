@@ -479,6 +479,7 @@ export default function Topic({ data, updateData }) {
 		document.getElementsByClassName('note-section')[0].value = data.questions[ind].Notes;
 		document.getElementsByClassName('question-title')[0].innerHTML = data.questions[ind].Problem;
 	}
+
 	return (
 		<>
 			<h3 className='text-center mb-4'>

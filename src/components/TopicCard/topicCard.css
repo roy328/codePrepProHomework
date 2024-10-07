@@ -3,15 +3,15 @@
   height: 70vh;
 }
 .container::-webkit-scrollbar {
-  width: 5px; /* width of the entire scrollbar */
+  width: 5px; 
 }
 .container::-webkit-scrollbar-track {
-  background: rgb(255, 255, 255); /* color of the tracking area */
+  background: rgb(255, 255, 255); 
 }
 .container::-webkit-scrollbar-thumb {
-  background-color: rgba(54, 54, 54, 0.466); /* color of the scroll thumb */
-  border-radius: 10px; /* roundness of the scroll thumb */
-  border: 3px solid rgba(78, 78, 78, 0.452); /* creates padding around scroll thumb */
+  background-color: rgba(54, 54, 54, 0.466); 
+  border-radius: 10px; 
+  border: 3px solid rgba(78, 78, 78, 0.452);
 }
 .inprogress-card {
   background-color: #aad6b9;
@@ -64,16 +64,10 @@
 
 
 .promotional-card {
-  /* background: #0575E6;  
-  background: -webkit-linear-gradient(to right, #021B79, #0575E6);  
-  background: linear-gradient(to right, #021B79, #0575E6);  */
-
-
-
   
-  background: #ee0979;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #ff6a00, #ee0979);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #ff6a00, #ee0979); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #ee0979;  
+background: -webkit-linear-gradient(to right, #ff6a00, #ee0979);  
+background: linear-gradient(to right, #ff6a00, #ee0979); 
 
 
 
@@ -94,6 +88,21 @@ background: linear-gradient(to right, #ff6a00, #ee0979); /* W3C, IE 10+/ Edge, F
   height: 90%;
   animation: gradient 5s ease infinite;
 }
+.blind75Card {
+  background-color: #f0ad4e; /* Example color for Blind 75 */
+}
+.all {
+  background-color: #007bff; /* Example color for Blind 75 */
+}
+
+.universityCard {
+  background-color: #5bc0de; /* Example color for University */
+}
+
+.coreProblemsCard {
+  background-color: #d9534f; /* Example color for Core Problems */
+}
+
 
 .promotional-heading {
   color: #fff;
