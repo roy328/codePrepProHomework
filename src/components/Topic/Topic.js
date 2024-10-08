@@ -18,12 +18,12 @@ import Button from 'react-bootstrap/Button';
 
 export default function Topic({ data, updateData }) {
 	/*
-    This component takes data releted to a paticular topic
-    and updateData() from App component
+	This component takes data releted to a paticular topic
+	and updateData() from App component
   */
 	/*
-    Setting state for fields that comes from `data` prop
-    so that `data` prop is not undefined on reload
+	Setting state for fields that comes from `data` prop
+	so that `data` prop is not undefined on reload
   */
 	const [select, setSelected] = useState([]);
 	const [isBookmarkSortFilterSelected, setIsBookmarkSortFilterSelected] = useState(false);
@@ -45,117 +45,67 @@ export default function Topic({ data, updateData }) {
 				if (question.Done) {
 					doneQuestion.push(index);
 				}
+				// console.log(question)
 				/*
-        |	Hidden properties `_is_selected` and `_search_text` are used to sort the table
-        |	and search the table respectively. react-bootstrap-table does not allow sorting
-        |	by selectRow by default, and requires plain text to perform searches.
-        */
+		|	Hidden properties `_is_selected` and `_search_text` are used to sort the table
+		|	and search the table respectively. react-bootstrap-table does not allow sorting
+		|	by selectRow by default, and requires plain text to perform searches.
+		*/
 				return {
 					id: index,
 					question: (
 						<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-							{/* Question link */}
-							<a
-								href={question.URL}
-								target='_blank'
-								rel='noopener noreferrer'
-								style={{ fontWeight: '600', fontSize: '20px' }}
-								className='question-link'
-							>
-								{question.Problem}
-							</a>
-						</div>
-					),
-					links:(
-						<div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', gap:'10px' }}>
-							{question.URL2.length>0 && <img
-								src={'https://i.ibb.co/RcQ5qLs/Coding-Ninjas-logo.jpg'}
-								width='30px'
-								height='25px'
-								alt='icon'
-								style={{ float: 'right', cursor: 'pointer' }}
-								onClick={() => {
-									window.open(`${question.URL2}&utm_source=website&utm_medium=affiliate&utm_campaign=450dsatracker`, '_blank');
-								}}
-							/>}
-							
-							<img
-								src={
-									question.URL.includes('geeksforgeeks')
-										? 'https://img.icons8.com/color/24/000000/GeeksforGeeks.png'
-										: 'https://img.icons8.com/external-tal-revivo-color-tal-revivo/24/000000/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-color-tal-revivo.png'
-								}
-								width='30px'
-								height='25px'
-								alt='icon'
-								style={{ float: 'right', cursor: 'pointer' }}
-								onClick={() => {
-									window.open(question.URL, '_blank');
-								}}
-							/>
-						</div>
-					),
-					controls: (
-						<div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }}>
-							{/* <img
-								src={
-									question.URL.includes('geeksforgeeks')
-										? 'https://img.icons8.com/color/24/000000/GeeksforGeeks.png'
-										: 'https://img.icons8.com/external-tal-revivo-color-tal-revivo/24/000000/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-color-tal-revivo.png'
-								}
-								width='30px'
-								height='25px'
-								alt='icon'
-								style={{ float: 'right', cursor: 'pointer' }}
-								onClick={() => {
-									window.open(question.URL, '_blank');
-								}}
-							/> */}
-							<OverlayTrigger
-								placement='left'
-								overlay={!question.Bookmark ? renderTooltipAddBookmark : renderTooltipRemoveBookmark}
-							>
-								<svg
-									xmlns='http://www.w3.org/2000/svg'
-									width='16'
-									height='16'
-									fill='currentColor'
-									class={question.Bookmark === 1 ? 'bi bi-bookmark-fill' : 'bi bi-bookmark'}
-									viewBox='0 0 16 16'
-									style={{ float: 'right', color: 'green', cursor: 'pointer', paddingLeft: '1px' }}
-									onClick={() => handleBookmark(index, question)}
+							<div style={styles.card}>
+								<OverlayTrigger
+									placement='left'
+									overlay={!question.Bookmark ? renderTooltipAddBookmark : renderTooltipRemoveBookmark}
 								>
-									{question.Bookmark ? (
-										<path d='M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z' />
-									) : (
-										<path d='M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z' />
-									)}
-								</svg>
-							</OverlayTrigger>
-							<OverlayTrigger
-								placement='left'
-								overlay={question.Notes && question.Notes.length !== 0 ? renderTooltipView : renderTooltipAdd}
-							>
-								<svg
-									xmlns='http://www.w3.org/2000/svg'
-									width='16'
-									height='16'
-									fill='currentColor'
-									class={question.Notes && question.Notes.length !== 0 ? 'bi bi-sticky-fill' : 'bi bi-sticky'}
-									viewBox='0 0 16 16'
-									style={{ float: 'right', color: 'green', cursor: 'pointer' }}
-									onClick={() => shownotes(index)}
-								>
-									{question.Notes && question.Notes.length !== 0 ? (
-										<path d='M2.5 1A1.5 1.5 0 0 0 1 2.5v11A1.5 1.5 0 0 0 2.5 15h6.086a1.5 1.5 0 0 0 1.06-.44l4.915-4.914A1.5 1.5 0 0 0 15 8.586V2.5A1.5 1.5 0 0 0 13.5 1h-11zm6 8.5a1 1 0 0 1 1-1h4.396a.25.25 0 0 1 .177.427l-5.146 5.146a.25.25 0 0 1-.427-.177V9.5z' />
-									) : (
-										<path d='M2.5 1A1.5 1.5 0 0 0 1 2.5v11A1.5 1.5 0 0 0 2.5 15h6.086a1.5 1.5 0 0 0 1.06-.44l4.915-4.914A1.5 1.5 0 0 0 15 8.586V2.5A1.5 1.5 0 0 0 13.5 1h-11zM2 2.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5V8H9.5A1.5 1.5 0 0 0 8 9.5V14H2.5a.5.5 0 0 1-.5-.5v-11zm7 11.293V9.5a.5.5 0 0 1 .5-.5h4.293L9 13.793z' />
-									)}
-								</svg>
-							</OverlayTrigger>
+									<svg
+										xmlns='http://www.w3.org/2000/svg'
+										width='16'
+										height='16'
+										fill='currentColor'
+										class={question.Bookmark === 1 ? 'bi bi-bookmark-fill' : 'bi bi-bookmark'}
+										viewBox='0 0 16 16'
+										style={{ float: 'right', color: 'green', cursor: 'pointer', paddingLeft: '1px' }}
+										onClick={() => handleBookmark(index, question)}
+									>
+										{question.Bookmark ? (
+											<path d='M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z' />
+										) : (
+											<path d='M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z' />
+										)}
+									</svg>
+								</OverlayTrigger>
+								<h4 style={{ textAlign: 'center' }}>Question&nbsp;{index + 1}</h4>
+								<p>{question.Problem}</p>
+								<div>
+									<label style={styles.radioLabel}>
+										<input
+											type="radio"
+											value="option1"
+											checked={question.Done}
+											// onChange={selectRow}
+											selected={true}
+										/>
+										&nbsp;I have solved this problem
+									</label>
+								</div>
+								<div>
+									<label style={styles.radioLabel}>
+										<input
+											type="radio"
+											value="option2"
+											checked={!question.Done}
+											// onChange={selectRow}
+											selected={false}
+										/>
+										&nbsp;I haven't solved this problem
+									</label>
+								</div>
+							</div>
 						</div>
 					),
-
 					_is_selected: question.Done,
 					Bookmark: question.Bookmark,
 					_search_text: question.Problem,
@@ -278,30 +228,14 @@ export default function Topic({ data, updateData }) {
 	// table config
 	const columns = [
 		{
-			dataField: 'id',
-			text: 'id',
-			headerStyle: { width: '40px', fontSize: '20px', textAlign: 'center' },
-			style: { fontSize: '20px', cursor: 'pointer', textAlign: 'center' },
+			dataField: 'question',
+			text: 'Questions',
+			headerStyle: { fontSize: '20px', textAlign: 'center', width: '80%' },
 			events: {
 				onClick: (e, column, columnIndex, row, rowIndex) => {
 					handleSelect(row, !row._is_selected);
 				},
 			},
-		},
-		{
-			dataField: 'question',
-			text: 'Questions',
-			headerStyle: { fontSize: '20px', textAlign: 'center', width: '80%' },
-		},
-		{
-			dataField: 'links',
-			text: 'Links',
-			headerStyle: { fontSize: '20px', textAlign: 'center' },
-		},
-		{
-			dataField: 'controls',
-			text: '',
-			headerStyle: { fontSize: '20px', textAlign: 'center' },
 		},
 		{
 			dataField: '_is_selected',
@@ -323,16 +257,18 @@ export default function Topic({ data, updateData }) {
 			hidden: true,
 		},
 	];
+
 	const rowStyle = { fontSize: '20px' };
 	const selectRow = {
 		mode: 'checkbox',
-		style: { background: dark ? '#393E46' : '#c8e6c9', fontSize: '24px' },
+		style: { background: dark ? '#393E46' : '#c8e6c9', fontSize: '18px', maxWidth: "0px", textAlign: 'center'},
 		selected: select,
 		onSelect: handleSelect,
-		hideSelectAll: true,
+		hideSelectAll: false,
 	};
-	// func() triggered when a question is marked done
+	
 	function handleSelect(row, isSelect) {
+		console.log("row", row)
 		let key = topicName.replace(/[^A-Z0-9]+/gi, '_').toLowerCase();
 		let newDoneQuestion = [...select];
 		let updatedQuestionsStatus = data.questions.map((question, index) => {
@@ -388,6 +324,28 @@ export default function Topic({ data, updateData }) {
 		});
 	}
 
+	function handleBookmark(row, quest) {
+		let key = topicName.replace(/[^A-Z0-9]+/gi, '_').toLowerCase();
+		let newDoneQuestion = [...select];
+		let updatedQuestionsStatus = data.questions.map((question, index) => {
+			if (row === index) {
+				question.Bookmark = quest.Bookmark ? false : true;
+				return question;
+			} else {
+				return question;
+			}
+		});
+		updateData(
+			key,
+			{
+				started: newDoneQuestion.length > 0 ? true : false,
+				doneQuestions: newDoneQuestion.length,
+				questions: updatedQuestionsStatus,
+			},
+			data.position
+		);
+		// console.log(quest.Bookmark)
+	}
 	//Notes component
 	const NoteSection = (props) => {
 		let id = localStorage.getItem('cid');
@@ -437,29 +395,6 @@ export default function Topic({ data, updateData }) {
 			</>
 		);
 	};
-	//function for bookmarks
-	function handleBookmark(row, quest) {
-		let key = topicName.replace(/[^A-Z0-9]+/gi, '_').toLowerCase();
-		let newDoneQuestion = [...select];
-		let updatedQuestionsStatus = data.questions.map((question, index) => {
-			if (row === index) {
-				question.Bookmark = quest.Bookmark ? false : true;
-				return question;
-			} else {
-				return question;
-			}
-		});
-		updateData(
-			key,
-			{
-				started: newDoneQuestion.length > 0 ? true : false,
-				doneQuestions: newDoneQuestion.length,
-				questions: updatedQuestionsStatus,
-			},
-			data.position
-		);
-		// console.log(quest.Bookmark)
-	}
 	//function for closing notes
 	function saveAndExitNotes() {
 		document.getElementsByClassName('note-section')[0].style.display = 'none';
@@ -468,17 +403,8 @@ export default function Topic({ data, updateData }) {
 		document.getElementsByClassName('note-area')[0].style.display = 'none';
 		localStorage.removeItem('cid');
 	}
-	//funtion for taking notes
-	function shownotes(ind) {
-		document.getElementsByClassName('note-section')[0].style.display = 'block';
-		document.getElementsByClassName('note-exit')[0].style.display = 'block';
-		document.getElementsByClassName('note-save')[0].style.display = 'block';
-		document.getElementsByClassName('note-area')[0].style.display = 'block';
 
-		localStorage.setItem('cid', ind);
-		document.getElementsByClassName('note-section')[0].value = data.questions[ind].Notes;
-		document.getElementsByClassName('question-title')[0].innerHTML = data.questions[ind].Problem;
-	}
+
 
 	return (
 		<>
@@ -502,9 +428,9 @@ export default function Topic({ data, updateData }) {
 					{(props) => (
 						<div>
 							<div className='header-rand'>{SearchBar({ ...props.searchProps })}</div>
-							<div className='container container-custom' style={{ overflowAnchor: 'none' }}>
-								<Fade duration={600}>
-									<BootstrapTable {...props.baseProps} selectRow={selectRow} sort={sortMode} classes={dark ? 'dark-table' : ''} />
+							<div className='container container-custom' style={{ overflowAnchor: 'none', border: 'none'}}>
+								<Fade duration={1000} style={{border: 'none'}}>
+									<BootstrapTable {...props.baseProps} selectRow={selectRow} style={{border: 'none'}} sort={sortMode} classes={dark ? 'dark-table' : ''} />
 								</Fade>
 							</div>
 						</div>
@@ -516,6 +442,23 @@ export default function Topic({ data, updateData }) {
 		</>
 	);
 }
+
+const styles = {
+	card: {
+		border: '1px solid #ccc',
+		borderRadius: '8px',
+		padding: '20px',
+		maxWidth: '800px',
+		margin: '20px auto',
+		boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+		fontFamily: 'Arial, sans-serif',
+	},
+	radioLabel: {
+		display: 'block',
+		marginBottom: '10px',
+		cursor: 'pointer',
+	},
+};
 
 function RandomButton({ data }) {
 	let min = 0;
